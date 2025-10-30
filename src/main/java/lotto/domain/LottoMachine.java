@@ -26,6 +26,10 @@ public class LottoMachine {
         return new Lotto(generator.generate());
     }
 
+    public void useCoin() {
+        coin--;
+    }
+
     public boolean hasCoins() {
         return coin > 0;
     }
