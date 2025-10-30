@@ -1,11 +1,16 @@
 package lotto.domain;
 
+import lotto.Lotto;
+import lotto.RandomNumberGenerator;
+
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
 
+    private final RandomNumberGenerator generator;
     private int coin;
 
-    public LottoMachine() {
+    public LottoMachine(RandomNumberGenerator generator) {
+        this.generator = generator;
         this.coin = 0;
     }
 
@@ -17,7 +22,11 @@ public class LottoMachine {
         coin += purchasedCoins;
     }
 
+    public Lotto issueLotto() {
+        return new Lotto(generator.generate());
+    }
+
     public boolean hasCoins() {
-        return this.coin > 0;
+        return coin > 0;
     }
 }
