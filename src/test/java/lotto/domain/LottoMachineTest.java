@@ -1,15 +1,19 @@
 package lotto.domain;
 
-import org.assertj.core.api.Assertions;
+import lotto.Lotto;
+import lotto.RandomNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class LottoMachineTest {
     private LottoMachine lottoMachine;
 
     @BeforeEach
     void setUp() {
-        lottoMachine = new LottoMachine();
+        lottoMachine = new LottoMachine(new RandomNumberGenerator());
     }
 
     @Test
@@ -21,7 +25,7 @@ public class LottoMachineTest {
         lottoMachine.exchangeForCoins(money);
 
         //then
-        Assertions.assertThat(lottoMachine.hasCoins()).isTrue();
+        assertThat(lottoMachine.hasCoins()).isTrue();
     }
 
     @Test
@@ -30,8 +34,21 @@ public class LottoMachineTest {
         int money = 1500;
 
         //when & then
-        Assertions.assertThatThrownBy(() -> lottoMachine.exchangeForCoins(money))
+        assertThatThrownBy(() -> lottoMachine.exchangeForCoins(money))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+    }
+
+    @Test
+    void 코인이_있으면_로또를_발행할_수_있다() {
+        //given
+        lottoMachine.exchangeForCoins(1000);
+
+        //when
+        Lotto lotto = lottoMachine.issueLotto();
+
+        //then
+        assertThat(lotto).isNotNull();
+        assertThat(lotto).isInstanceOf(Lotto.class);
     }
 }
