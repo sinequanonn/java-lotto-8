@@ -41,14 +41,23 @@ public class LottoMachineTest {
 
     @Test
     void 코인이_있으면_로또를_발행할_수_있다() {
-        //given
-        lottoMachine.exchangeForCoins(1000);
-
         //when
+        lottoMachine.exchangeForCoins(1000);
         Lotto lotto = lottoMachine.issueLotto();
 
         //then
         assertThat(lotto).isNotNull();
         assertThat(lotto).isInstanceOf(Lotto.class);
+    }
+
+    @Test
+    void 로또를_발행하면_코인이_1개_차감된다() {
+        //when
+        lottoMachine.exchangeForCoins(1000);
+        lottoMachine.issueLotto();
+        lottoMachine.useCoin();
+
+        //then
+        assertThat(lottoMachine.hasCoins()).isFalse();
     }
 }
