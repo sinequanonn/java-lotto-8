@@ -157,10 +157,10 @@ public class LottoServiceTest {
         Map<LottoRank, Integer> result = new HashMap<>();
         result.put(LottoRank.FOURTH, 1);
         result.put(LottoRank.FIFTH, 1);
-        int purchaseAmount = 55000;
+        lottoMachine.exchangeForCoins(55000);
 
         //when
-        double profitRate = lottoService.calculateProfitRate(result, purchaseAmount);
+        double profitRate = lottoService.calculateProfitRate(result);
 
         //then
         assertThat(profitRate).isEqualTo(100.0);
@@ -170,11 +170,10 @@ public class LottoServiceTest {
     void 당첨된_경우가_없을_때_수익률은_0퍼센트이다() {
         //given
         Map<LottoRank, Integer> result = new HashMap<>();
-
-        int purchaseAmount = 1000;
+        lottoMachine.exchangeForCoins(1000);
 
         //when
-        double profitRate = lottoService.calculateProfitRate(result, purchaseAmount);
+        double profitRate = lottoService.calculateProfitRate(result);
 
         //then
         assertThat(profitRate).isEqualTo(0.0);
