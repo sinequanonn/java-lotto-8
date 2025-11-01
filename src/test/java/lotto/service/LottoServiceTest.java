@@ -48,10 +48,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.FIRST)).isEqualTo(1);
@@ -62,10 +63,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 3, 4, 5, 7)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.SECOND)).isEqualTo(1);
@@ -76,10 +78,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 3, 4, 5, 8)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.THIRD)).isEqualTo(1);
@@ -90,10 +93,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 3, 4, 8, 9)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.FOURTH)).isEqualTo(1);
@@ -104,10 +108,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 3, 8, 9, 10)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.FIFTH)).isEqualTo(1);
@@ -118,10 +123,11 @@ public class LottoServiceTest {
         //given
         List<Lotto> lottos = List.of(new Lotto(List.of(1, 2, 7, 8, 9, 10)));
         List<Integer> winningNumber = List.of(1, 2, 13, 14, 15, 16);
-        BonusNumber bonusNumber = new BonusNumber(45);
+        Integer bonusNumber = 45;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.NONE)).isEqualTo(1);
@@ -135,10 +141,11 @@ public class LottoServiceTest {
                 new Lotto(List.of(1, 2, 3, 8, 9, 10)),
                 new Lotto(List.of(1, 2, 3, 8, 9, 10)));
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
-        BonusNumber bonusNumber = new BonusNumber(7);
+        Integer bonusNumber = 7;
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
 
         //when
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningNumber, bonusNumber);
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
 
         //then
         assertThat(result.get(LottoRank.FIFTH)).isEqualTo(3);

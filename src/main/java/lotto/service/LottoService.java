@@ -1,9 +1,9 @@
 package lotto.service;
 
-import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoRank;
+import lotto.domain.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,14 +28,11 @@ public class LottoService {
         return lottos;
     }
 
-    public Map<LottoRank, Integer> calculateResult(List<Lotto> lottos, List<Integer> winningNumber, BonusNumber bonusNumber) {
+    public Map<LottoRank, Integer> calculateResult(List<Lotto> lottos, WinningLotto winningLotto) {
         Map<LottoRank, Integer> result = new HashMap<>();
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatch(winningNumber);
-            boolean matchBonusNumber = lotto.containsBonusNumber(bonusNumber);
-
-            LottoRank rank = LottoRank.of(matchCount, matchBonusNumber);
+            LottoRank rank = winningLotto.match(lotto);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }
         return result;
