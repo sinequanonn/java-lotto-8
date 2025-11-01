@@ -15,8 +15,11 @@ public class InputView {
     public static final String INPUT_BONUS_NUMBER = "보너스 번호를 입력해주세요.";
     private static final String NUMBER_REGEX = "\\d+";
 
-    public Integer inputMoney() {
+    public void printInputMoneyMessage() {
         System.out.println(INPUT_MONEY_MESSAGE);
+    }
+
+    public Integer inputMoney() {
         String input = Console.readLine();
         validateIntegerNumber(input);
         return Integer.parseInt(input);
