@@ -38,7 +38,8 @@ public class LottoService {
         return result;
     }
 
-    public double calculateProfitRate(Map<LottoRank, Integer> result, int purchaseAmount) {
+    public double calculateProfitRate(Map<LottoRank, Integer> result) {
+        int purchaseAmount = lottoMachine.getUsedMoney();
         double totalProfit = 0;
         for (LottoRank lottoRank : result.keySet()) {
             Integer count = result.get(lottoRank);
