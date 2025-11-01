@@ -46,7 +46,7 @@ class LottoTest {
     void 보너스_번호와_일치하는_번호가_있으면_true를_반환한다() {
         //given
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        BonusNumber bonusNumber = new BonusNumber(6);
+        Integer bonusNumber = 6;
 
         //when&then
         assertThat(lotto.containsBonusNumber(bonusNumber)).isTrue();
