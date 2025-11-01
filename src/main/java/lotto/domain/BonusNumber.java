@@ -16,4 +16,8 @@ public class BonusNumber {
             throw new IllegalArgumentException("[ERROR] 보너스 번호 숫자 범위는 1에서 45 사이어야 합니다.");
         }
     }
+
+    public Integer getNumber() {
+        return number;
+    }
 }
