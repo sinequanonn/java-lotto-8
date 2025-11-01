@@ -42,6 +42,7 @@ public class LottoController {
     }
 
     private WinningLotto inputBonusNumberAndGetWinningLotto(List<Integer> winningNumbers) {
+        inputView.printInputBonusNumber();
         while (true) {
             try {
                 Integer bonusNumber = inputView.inputBonusNumber();
