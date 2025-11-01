@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -141,5 +142,34 @@ public class LottoServiceTest {
 
         //then
         assertThat(result.get(LottoRank.FIFTH)).isEqualTo(3);
+    }
+
+    @Test
+    void 구입금액_55000원으로_4등_1개와_5등_1개가_당첨되면_수익률은_100퍼센트이다() {
+        //given
+        Map<LottoRank, Integer> result = new HashMap<>();
+        result.put(LottoRank.FOURTH, 1);
+        result.put(LottoRank.FIFTH, 1);
+        int purchaseAmount = 55000;
+
+        //when
+        double profitRate = lottoService.calculateProfitRate(result, purchaseAmount);
+
+        //then
+        assertThat(profitRate).isEqualTo(100.0);
+    }
+
+    @Test
+    void 당첨된_경우가_없을_때_수익률은_0퍼센트이다() {
+        //given
+        Map<LottoRank, Integer> result = new HashMap<>();
+
+        int purchaseAmount = 1000;
+
+        //when
+        double profitRate = lottoService.calculateProfitRate(result, purchaseAmount);
+
+        //then
+        assertThat(profitRate).isEqualTo(0.0);
     }
 }
