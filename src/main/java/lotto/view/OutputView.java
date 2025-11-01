@@ -15,6 +15,7 @@ public class OutputView {
     private static final String NEW_LINE = "\n";
 
     public void printPurchasedLotto(int lottoCount) {
+        printBlankLine();
         System.out.println(lottoCount + PURCHASE_MESSAGE);
     }
 
@@ -25,7 +26,7 @@ public class OutputView {
     }
 
     public void printWinningStatistics(Map<LottoRank, Integer> result) {
-        System.out.println();
+        printBlankLine();
         System.out.println(STATISTICS_MESSAGE);
         System.out.println(STATISTICS_DIVIDER);
         printRankResult(LottoRank.FIFTH, result);
@@ -47,5 +48,9 @@ public class OutputView {
 
     public void printErrorMessage(String message) {
         System.out.println(message);
+    }
+
+    public void printBlankLine() {
+        System.out.println();
     }
 }
