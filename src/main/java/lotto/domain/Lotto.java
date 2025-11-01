@@ -17,4 +17,10 @@ public class Lotto {
         validateDuplicateNumbers(numbers);
         validateNumberRange(numbers);
     }
+
+    public int countMatch(List<Integer> winningNumber) {
+        return (int) numbers.stream()
+                .filter(winningNumber::contains)
+                .count();
+    }
 }
