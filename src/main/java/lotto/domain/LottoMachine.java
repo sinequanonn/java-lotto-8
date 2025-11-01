@@ -12,9 +12,7 @@ public class LottoMachine {
     }
 
     public void exchangeForCoins(int money) {
-        if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
-        }
+        validateExchangeAmount(money);
         int purchasedCoins = money / LOTTO_PRICE;
         coin += purchasedCoins;
     }
@@ -29,5 +27,11 @@ public class LottoMachine {
 
     public boolean hasCoins() {
         return coin > 0;
+    }
+
+    private void validateExchangeAmount(int money) {
+        if (money % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+        }
     }
 }
