@@ -14,6 +14,12 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
+    public LottoRank match(Lotto lotto) {
+        int matchCount = lotto.countMatch(winningNumbers);
+        boolean matchBonusNumber = lotto.containsBonusNumber(bonusNumber);
+        return LottoRank.of(matchCount, matchBonusNumber);
+    }
+
     private void validate(List<Integer> winningNumbers, Integer bonusNumber) {
         validateBonusNumberNotDuplicate(winningNumbers, bonusNumber);
         validateWinningNumbers(winningNumbers);
