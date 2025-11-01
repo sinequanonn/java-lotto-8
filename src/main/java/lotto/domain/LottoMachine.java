@@ -1,8 +1,5 @@
 package lotto.domain;
 
-import lotto.Lotto;
-import lotto.RandomNumberGenerator;
-
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
 
