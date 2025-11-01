@@ -40,4 +40,13 @@ public class LottoService {
         }
         return result;
     }
+
+    public double calculateProfitRate(Map<LottoRank, Integer> result, int purchaseAmount) {
+        double totalProfit = 0;
+        for (LottoRank lottoRank : result.keySet()) {
+            Integer count = result.get(lottoRank);
+            totalProfit += lottoRank.getMoney() * count;
+        }
+        return Math.round((totalProfit / purchaseAmount) * 1000) / 10.0;
+    }
 }
