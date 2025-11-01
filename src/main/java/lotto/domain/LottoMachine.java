@@ -5,16 +5,19 @@ public class LottoMachine {
 
     private final RandomNumberGenerator generator;
     private int coin;
+    private int usedMoney;
 
     public LottoMachine(RandomNumberGenerator generator) {
         this.generator = generator;
         this.coin = 0;
+        this.usedMoney = 0;
     }
 
     public void exchangeForCoins(int money) {
         validateExchangeAmount(money);
         int purchasedCoins = money / LOTTO_PRICE;
         coin += purchasedCoins;
+        usedMoney += money;
     }
 
     public Lotto issueLotto() {
@@ -27,6 +30,10 @@ public class LottoMachine {
 
     public boolean hasCoins() {
         return coin > 0;
+    }
+
+    public int getUsedMoney() {
+        return usedMoney;
     }
 
     private void validateExchangeAmount(int money) {
