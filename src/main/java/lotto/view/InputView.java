@@ -30,6 +30,13 @@ public class InputView {
         return winningNumbers;
     }
 
+    public Integer inputBonusNumber() {
+        System.out.println(INPUT_BONUS_NUMBER);
+        String input = Console.readLine();
+        validateIntegerNumber(input);
+        return Integer.parseInt(input);
+    }
+
     private void validateWinningNumbers(List<Integer> winningNumbers) {
         validateDuplicateNumbers(winningNumbers);
         validateNumberRange(winningNumbers);
@@ -42,6 +49,8 @@ public class InputView {
                 .map(Integer::parseInt)
                 .toList();
     }
+
+
 
     private void validateIntegerNumber(String input) {
         if (!input.matches(NUMBER_REGEX)) {
