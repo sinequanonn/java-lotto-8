@@ -22,19 +22,57 @@ public class LottoController {
     }
 
     public void run() {
-        Integer money = inputView.inputMoney();
-        List<Lotto> lottos = lottoService.purchaseLottos(money);
+        List<Lotto> lottos = inputMoneyAndPurchaseLottos();
+
         outputView.printPurchasedLotto(lottos.size());
         outputView.printLottos(lottos);
 
-        List<Integer> winningNumbers = inputView.inputWinningLotto();
-        Integer bonusNumber = inputView.inputBonusNumber();
-        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+        WinningLotto winningLotto = getWinningLotto();
 
         Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
-        double profitRate = lottoService.calculateProfitRate(result, money);
+        double profitRate = lottoService.calculateProfitRate(result);
 
         outputView.printWinningStatistics(result);
         outputView.printProfitRate(profitRate);
+    }
+
+    private WinningLotto getWinningLotto() {
+        List<Integer> winningNumbers = inputWinningNumbersForWinningLotto();
+        return inputBonusNumberAndGetWinningLotto(winningNumbers);
+    }
+
+    private WinningLotto inputBonusNumberAndGetWinningLotto(List<Integer> winningNumbers) {
+        while (true) {
+            try {
+                Integer bonusNumber = inputView.inputBonusNumber();
+                return new WinningLotto(winningNumbers, bonusNumber);
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception.getMessage());
+            }
+        }
+    }
+
+
+    private List<Integer> inputWinningNumbersForWinningLotto() {
+        inputView.printInputWinningLotto();
+        while (true) {
+            try {
+                return inputView.inputWinningLotto();
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception.getMessage());
+            }
+        }
+    }
+
+    private List<Lotto> inputMoneyAndPurchaseLottos() {
+        inputView.printInputMoneyMessage();
+        while (true) {
+            try {
+                Integer money = inputView.inputMoney();
+                return lottoService.purchaseLottos(money);
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception.getMessage());
+            }
+        }
     }
 }
