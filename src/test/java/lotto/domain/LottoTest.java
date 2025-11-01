@@ -51,4 +51,16 @@ class LottoTest {
         //when&then
         assertThat(lotto.containsBonusNumber(bonusNumber)).isTrue();
     }
+
+    @Test
+    void 로또_번호를_오름차순으로_정렬해서_반환한다() {
+        //given
+        Lotto lotto = new Lotto(List.of(6, 3, 1, 5, 2, 4));
+
+        //when
+        List<Integer> sortedNumbers = lotto.getSortedNumbers();
+
+        //then
+        assertThat(sortedNumbers).containsExactly(1, 2, 3, 4, 5, 6);
+    }
 }
