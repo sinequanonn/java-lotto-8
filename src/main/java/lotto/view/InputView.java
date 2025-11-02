@@ -1,6 +1,7 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import lotto.exception.ErrorMessage;
 import lotto.validator.NumberValidator;
 
 import java.util.Arrays;
@@ -68,7 +69,7 @@ public class InputView {
 
     private void validateIntegerNumber(String input) {
         if (!input.matches(NUMBER_REGEX)) {
-            throw new IllegalArgumentException("[ERROR] 입력 값은 정수이어야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT.getMessage());
         }
     }
 }

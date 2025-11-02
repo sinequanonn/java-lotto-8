@@ -6,8 +6,8 @@ public enum ErrorMessage {
     DUPLICATE_BONUS_NUMBER("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다."),
     DUPLICATE_LOTTO_NUMBER("[ERROR] 로또 번호는 중복된 숫자를 포함하면 안됩니다."),
     OUT_OF_RANGE_MIN_NUMBER("[ERROR] 로또 번호는 1 미만이면 안됩니다."),
-    OUT_OF_RANGE_MAX_NUMBER("[ERROR] 로또 번호는 45 초과이면 안됩니다.");
-
+    OUT_OF_RANGE_MAX_NUMBER("[ERROR] 로또 번호는 45 초과이면 안됩니다."),
+    INVALID_NUMBER_FORMAT("[ERROR] 입력 값은 정수이어야 합니다.");
     private final String message;
 
     ErrorMessage(String message) {
