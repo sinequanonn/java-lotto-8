@@ -36,12 +36,6 @@ public class OutputView {
         printRankResult(LottoRank.FIRST, result);
     }
 
-    private void printRankResult(LottoRank rank, Map<LottoRank, Integer> result) {
-        int count = result.getOrDefault(rank, 0);
-        System.out.printf(RANK_RESULT_FORMAT + NEW_LINE,
-                rank.getMessage(), rank.getMoney(), count);
-    }
-
     public void printProfitRate(double rate) {
         System.out.printf(PROFIT_RATE_FORMAT + NEW_LINE, rate);
     }
@@ -52,5 +46,11 @@ public class OutputView {
 
     public void printBlankLine() {
         System.out.println();
+    }
+
+    private void printRankResult(LottoRank rank, Map<LottoRank, Integer> result) {
+        int count = result.getOrDefault(rank, 0);
+        System.out.printf(RANK_RESULT_FORMAT + NEW_LINE,
+                rank.getMessage(), rank.getMoney(), count);
     }
 }
