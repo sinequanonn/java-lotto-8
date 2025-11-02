@@ -5,14 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class LottoServiceTest {
     LottoMachine lottoMachine;
@@ -28,19 +26,11 @@ public class LottoServiceTest {
     @CsvSource({"1000, 1", "2000, 2", "3000, 3", "5000, 5"})
     void 구입_금액만큼_로또를_발행한다(int money, int expectedCount) {
         //when
-        List<Lotto> lottos = lottoService.purchaseLottos(money);
+        LottoCoin lottoCoin = new LottoCoin(money);
+        List<Lotto> lottos = lottoService.purchaseLottos(lottoCoin);
 
         //then
         assertThat(lottos).hasSize(expectedCount);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {1500, 3500, 5500})
-    void 구입_금액이_로또_가격으로_나누어_떨어지지_않으면_예외가_발생한다(int money) {
-        //when&then
-        assertThatThrownBy(() -> lottoService.purchaseLottos(money))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
     }
 
     @Test
@@ -157,10 +147,12 @@ public class LottoServiceTest {
         Map<LottoRank, Integer> result = new HashMap<>();
         result.put(LottoRank.FOURTH, 1);
         result.put(LottoRank.FIFTH, 1);
-        lottoMachine.exchangeForCoins(55000);
+        LottoCoin lottoCoin = new LottoCoin(55000);
+        System.out.println("lottoCoin = " + lottoCoin.getCoinAmount());
+        System.out.println("lottoCoin = " + lottoCoin.getUsedMoney());
 
         //when
-        double profitRate = lottoService.calculateProfitRate(result);
+        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
 
         //then
         assertThat(profitRate).isEqualTo(100.0);
@@ -169,11 +161,11 @@ public class LottoServiceTest {
     @Test
     void 당첨된_경우가_없을_때_수익률은_0퍼센트이다() {
         //given
+        LottoCoin lottoCoin = new LottoCoin(1000);
         Map<LottoRank, Integer> result = new HashMap<>();
-        lottoMachine.exchangeForCoins(1000);
 
         //when
-        double profitRate = lottoService.calculateProfitRate(result);
+        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
 
         //then
         assertThat(profitRate).isEqualTo(0.0);

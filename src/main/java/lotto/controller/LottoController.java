@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoCoin;
 import lotto.domain.LottoRank;
 import lotto.domain.WinningLotto;
 import lotto.service.LottoService;
@@ -22,7 +23,8 @@ public class LottoController {
     }
 
     public void run() {
-        List<Lotto> lottos = inputMoneyAndPurchaseLottos();
+        LottoCoin lottoCoin = inputMoneyAndCreateLottoCoins();
+        List<Lotto> lottos = lottoService.purchaseLottos(lottoCoin);
 
         outputView.printPurchasedLotto(lottos.size());
         outputView.printLottos(lottos);
@@ -30,10 +32,22 @@ public class LottoController {
         WinningLotto winningLotto = getWinningLotto();
 
         Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
-        double profitRate = lottoService.calculateProfitRate(result);
+        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
 
         outputView.printWinningStatistics(result);
         outputView.printProfitRate(profitRate);
+    }
+
+    private LottoCoin inputMoneyAndCreateLottoCoins() {
+        inputView.printInputMoneyMessage();
+        while (true) {
+            try {
+                Integer money = inputView.inputMoney();
+                return lottoService.exchangeCoin(money);
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception.getMessage());
+            }
+        }
     }
 
     private WinningLotto getWinningLotto() {
@@ -53,24 +67,11 @@ public class LottoController {
         }
     }
 
-
     private List<Integer> inputWinningNumbersForWinningLotto() {
         inputView.printInputWinningLotto();
         while (true) {
             try {
                 return inputView.inputWinningLotto();
-            } catch (IllegalArgumentException exception) {
-                outputView.printErrorMessage(exception.getMessage());
-            }
-        }
-    }
-
-    private List<Lotto> inputMoneyAndPurchaseLottos() {
-        inputView.printInputMoneyMessage();
-        while (true) {
-            try {
-                Integer money = inputView.inputMoney();
-                return lottoService.purchaseLottos(money);
             } catch (IllegalArgumentException exception) {
                 outputView.printErrorMessage(exception.getMessage());
             }

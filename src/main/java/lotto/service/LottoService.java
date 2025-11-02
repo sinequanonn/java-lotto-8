@@ -1,9 +1,6 @@
 package lotto.service;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
-import lotto.domain.LottoRank;
-import lotto.domain.WinningLotto;
+import lotto.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +14,15 @@ public class LottoService {
         this.lottoMachine = lottoMachine;
     }
 
-    public List<Lotto> purchaseLottos(int money) {
-        lottoMachine.exchangeForCoins(money);
+    public LottoCoin exchangeCoin(int money) {
+        return new LottoCoin(money);
+    }
 
+    public List<Lotto> purchaseLottos(LottoCoin lottoCoin) {
         List<Lotto> lottos = new ArrayList<>();
-        while (lottoMachine.hasCoins()) {
+
+        for (int i = 0; i < lottoCoin.getCoinAmount(); i++) {
             lottos.add(lottoMachine.issueLotto());
-            lottoMachine.useCoin();
         }
         return lottos;
     }
@@ -38,8 +37,8 @@ public class LottoService {
         return result;
     }
 
-    public double calculateProfitRate(Map<LottoRank, Integer> result) {
-        int purchaseAmount = lottoMachine.getUsedMoney();
+    public double calculateProfitRate(Map<LottoRank, Integer> result, LottoCoin lottoCoin) {
+        int purchaseAmount = lottoCoin.getUsedMoney();
         double totalProfit = 0;
         for (LottoRank lottoRank : result.keySet()) {
             Integer count = result.get(lottoRank);
