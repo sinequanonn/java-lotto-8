@@ -8,8 +8,8 @@ public enum LottoRank {
     FIFTH(5_000, "3개 일치"),
     NONE(0, "0개 일치");
 
-    private long money;
-    private String message;
+    private final long money;
+    private final String message;
 
     LottoRank(long money, String message) {
         this.money = money;
