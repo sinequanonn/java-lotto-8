@@ -22,7 +22,7 @@ public class NumberValidator {
     
     public static void validateDuplicateNumbers(List<Integer> numbers) {
         Set<Integer> tempNumbers = new HashSet<>(numbers);
-        if (tempNumbers.size() != LOTTO_NUMBER_COUNT) {
+        if (numbers.size() != tempNumbers.size()) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATE_LOTTO_NUMBER.getMessage());
         }
     }
