@@ -27,7 +27,7 @@ public class LottoCoinTest {
         //when & then
         assertThatThrownBy(() -> new LottoCoin(money))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+                .hasMessage(ErrorMessage.INVALID_LOTTO_PRICE.getMessage());
     }
 
     @ParameterizedTest
