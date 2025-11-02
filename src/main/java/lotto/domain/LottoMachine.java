@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.exception.ErrorMessage;
+
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
 
@@ -38,7 +40,7 @@ public class LottoMachine {
 
     private void validateExchangeAmount(int money) {
         if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_PRICE.getMessage());
         }
     }
 }
