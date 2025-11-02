@@ -18,6 +18,10 @@ public class LottoService {
         return new LottoCoin(money);
     }
 
+    public WinningLotto createWinningLotto(List<Integer> winningNumbers, Integer bonusNumber) {
+        return new WinningLotto(winningNumbers, bonusNumber);
+    }
+
     public List<Lotto> purchaseLottos(LottoCoin lottoCoin) {
         List<Lotto> lottos = new ArrayList<>();
 
