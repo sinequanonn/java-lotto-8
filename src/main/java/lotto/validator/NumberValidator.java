@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 public class NumberValidator {
-    public static final int LOTTO_NUMBER_COUNT = 6;
-    public static final int LOTTO_MAX_NUMBER = 45;
-    public static final int LOTTO_MIN_NUMBER = 1;
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private static final int LOTTO_MAX_NUMBER = 45;
+    private static final int LOTTO_MIN_NUMBER = 1;
 
     private NumberValidator() {
     }
