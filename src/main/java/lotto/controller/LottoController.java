@@ -30,11 +30,10 @@ public class LottoController {
         outputView.printLottos(lottos);
 
         WinningLotto winningLotto = getWinningLotto();
-
         Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
-        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
-
         outputView.printWinningStatistics(result);
+
+        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
         outputView.printProfitRate(profitRate);
     }
 
