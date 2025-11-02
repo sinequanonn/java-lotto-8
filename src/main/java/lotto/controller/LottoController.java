@@ -24,17 +24,12 @@ public class LottoController {
 
     public void run() {
         LottoCoin lottoCoin = inputMoneyAndCreateLottoCoins();
-        List<Lotto> lottos = lottoService.purchaseLottos(lottoCoin);
 
-        outputView.printPurchasedLotto(lottos.size());
-        outputView.printLottos(lottos);
+        List<Lotto> lottos = lottoService.purchaseLottos(lottoCoin);
+        printLottos(lottos);
 
         WinningLotto winningLotto = getWinningLotto();
-        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
-        outputView.printWinningStatistics(result);
-
-        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
-        outputView.printProfitRate(profitRate);
+        printResults(lottos, winningLotto, lottoCoin);
     }
 
     private LottoCoin inputMoneyAndCreateLottoCoins() {
@@ -49,9 +44,25 @@ public class LottoController {
         }
     }
 
+    private void printLottos(List<Lotto> lottos) {
+        outputView.printPurchasedLotto(lottos.size());
+        outputView.printLottos(lottos);
+    }
+
     private WinningLotto getWinningLotto() {
-        List<Integer> winningNumbers = inputWinningNumbersForWinningLotto();
+        List<Integer> winningNumbers = inputWinningNumbers();
         return inputBonusNumberAndGetWinningLotto(winningNumbers);
+    }
+
+    private List<Integer> inputWinningNumbers() {
+        inputView.printInputWinningLotto();
+        while (true) {
+            try {
+                return inputView.inputWinningLotto();
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception.getMessage());
+            }
+        }
     }
 
     private WinningLotto inputBonusNumberAndGetWinningLotto(List<Integer> winningNumbers) {
@@ -66,14 +77,11 @@ public class LottoController {
         }
     }
 
-    private List<Integer> inputWinningNumbersForWinningLotto() {
-        inputView.printInputWinningLotto();
-        while (true) {
-            try {
-                return inputView.inputWinningLotto();
-            } catch (IllegalArgumentException exception) {
-                outputView.printErrorMessage(exception.getMessage());
-            }
-        }
+    private void printResults(List<Lotto> lottos, WinningLotto winningLotto, LottoCoin lottoCoin) {
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
+        outputView.printWinningStatistics(result);
+
+        double profitRate = lottoService.calculateProfitRate(result, lottoCoin);
+        outputView.printProfitRate(profitRate);
     }
 }
