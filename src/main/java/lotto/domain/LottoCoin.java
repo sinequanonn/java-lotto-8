@@ -23,6 +23,9 @@ public class LottoCoin {
     }
 
     private void validateMoney(int money) {
+        if (money <= 0) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_RANGE.getMessage());
+        }
         if (money % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_PRICE.getMessage());
         }
