@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.exception.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,5 +28,14 @@ public class LottoCoinTest {
         assertThatThrownBy(() -> new LottoCoin(money))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1000, -2000, -5000})
+    void 구입금액이_양수가_아니면_예외를_발생한다(int money) {
+        //when&then
+        assertThatThrownBy(() -> new LottoCoin(money))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorMessage.INVALID_NUMBER_RANGE.getMessage());
     }
 }
