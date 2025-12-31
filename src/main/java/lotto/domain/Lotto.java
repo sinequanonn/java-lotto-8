@@ -15,18 +15,22 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public List<Integer> getNumbers() {
+        return numbers.stream()
+                .sorted()
+                .toList();
+    }
+
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
+
     private void validateDuplicated(List<Integer> numbers) {
         Set<Integer> check = new HashSet<>();
         check.addAll(numbers);
         if (check.size() != numbers.size()) {
             throw new IllegalArgumentException(ErrorMessage.DUPLICATED_NUMBER.getMessage());
         }
-    }
-
-    public List<Integer> getNumbers() {
-        return numbers.stream()
-                .sorted()
-                .toList();
     }
 
     private void validate(List<Integer> numbers) {

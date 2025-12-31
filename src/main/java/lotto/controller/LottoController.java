@@ -3,6 +3,8 @@ package lotto.controller;
 import lotto.converter.InputConverter;
 import lotto.domain.Lotto;
 import lotto.domain.Money;
+import lotto.domain.WinningLotto;
+import lotto.exception.ErrorMessage;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -28,6 +30,8 @@ public class LottoController {
         outputView.printLottos(lottos);
 
         Lotto lotto = inputWinngingLotto();
+        WinningLotto winningLotto = inputBonusNumber(lotto);
+
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {
@@ -53,6 +57,18 @@ public class LottoController {
             String input = inputView.inputWinningLottoNumbers();
             List<Integer> numbers = InputConverter.convertInputToListInteger(input);
             return new Lotto(numbers);
+        });
+    }
+
+    private WinningLotto inputBonusNumber(Lotto lotto) {
+        return checkValidInput(() -> {
+            String input = inputView.inputBonusNumber();
+            int bonusNumber = InputConverter.convertStringToInteger(input);
+            bonusNumber = InputConverter.validateLottoNumber(bonusNumber);
+            if (lotto.contains(bonusNumber)) {
+                throw new IllegalArgumentException(ErrorMessage.DUPLICATED_NUMBER.getMessage());
+            }
+            return new WinningLotto(lotto, bonusNumber);
         });
     }
 }
