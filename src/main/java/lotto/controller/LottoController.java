@@ -24,6 +24,8 @@ public class LottoController {
     public void run() {
         Money money = inputPurchasedMoney();
         List<Lotto> lottos = lottoService.purchaseLotto(money);
+        outputView.printPurchasedLotto(lottos.size());
+        outputView.printLottos(lottos);
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {
