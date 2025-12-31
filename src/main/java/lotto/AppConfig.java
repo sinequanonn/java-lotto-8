@@ -1,6 +1,8 @@
 package lotto;
 
 import lotto.controller.LottoController;
+import lotto.domain.LottoMachine;
+import lotto.domain.NumberGenerator;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -34,7 +36,7 @@ public class AppConfig {
 
     private LottoService lottoService() {
         if (lottoService == null) {
-            lottoService = new LottoService();
+            lottoService = new LottoService(new LottoMachine(new NumberGenerator()));
         }
         return lottoService;
     }

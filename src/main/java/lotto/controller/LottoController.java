@@ -1,11 +1,13 @@
 package lotto.controller;
 
 import lotto.converter.InputConverter;
+import lotto.domain.Lotto;
 import lotto.domain.Money;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class LottoController {
@@ -21,7 +23,7 @@ public class LottoController {
 
     public void run() {
         Money money = inputPurchasedMoney();
-        System.out.println("money = " + money);
+        List<Lotto> lottos = lottoService.purchaseLotto(money);
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {
