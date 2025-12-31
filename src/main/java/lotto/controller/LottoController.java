@@ -26,6 +26,8 @@ public class LottoController {
         List<Lotto> lottos = lottoService.purchaseLotto(money);
         outputView.printPurchasedLotto(lottos.size());
         outputView.printLottos(lottos);
+
+        Lotto lotto = inputWinngingLotto();
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {
@@ -40,9 +42,17 @@ public class LottoController {
 
     private Money inputPurchasedMoney() {
         return checkValidInput(() -> {
-            int amount = InputConverter.inputToPurchaseMoney(inputView.inputPurchaseMoney());
+            int amount = InputConverter.convertStringToInteger(inputView.inputPurchaseMoney());
 
             return new Money(amount);
+        });
+    }
+
+    private Lotto inputWinngingLotto() {
+        return checkValidInput(() -> {
+            String input = inputView.inputWinningLottoNumbers();
+            List<Integer> numbers = InputConverter.convertInputToListInteger(input);
+            return new Lotto(numbers);
         });
     }
 }
