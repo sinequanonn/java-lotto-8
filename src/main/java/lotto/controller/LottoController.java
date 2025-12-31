@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.converter.InputConverter;
 import lotto.domain.Lotto;
+import lotto.domain.LottoRank;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.exception.ErrorMessage;
@@ -10,6 +11,7 @@ import lotto.view.InputView;
 import lotto.view.OutputView;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class LottoController {
@@ -32,6 +34,8 @@ public class LottoController {
         Lotto lotto = inputWinngingLotto();
         WinningLotto winningLotto = inputBonusNumber(lotto);
 
+        Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
+        outputView.printResult(result);
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {

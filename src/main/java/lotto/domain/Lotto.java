@@ -25,6 +25,12 @@ public class Lotto {
         return numbers.contains(number);
     }
 
+    public int matchCount(List<Integer> winningNumbers) {
+        return (int) numbers.stream()
+                .filter(winningNumbers::contains)
+                .count();
+    }
+
     private void validateDuplicated(List<Integer> numbers) {
         Set<Integer> check = new HashSet<>();
         check.addAll(numbers);
@@ -39,6 +45,4 @@ public class Lotto {
         }
 
     }
-
-
 }
