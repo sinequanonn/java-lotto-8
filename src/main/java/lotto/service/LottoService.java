@@ -33,4 +33,12 @@ public class LottoService {
         }
         return result;
     }
+
+    public double calculateProfit(Map<LottoRank, Integer> rank, Money money) {
+        double totalProfit = 0;
+        for (LottoRank lottoRank : rank.keySet()) {
+            totalProfit += lottoRank.getPrize() * rank.getOrDefault(lottoRank, 0);
+        }
+        return Math.round((totalProfit / money.getMoney()) * 1000) / 10.0;
+    }
 }

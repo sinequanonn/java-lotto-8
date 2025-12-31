@@ -36,6 +36,9 @@ public class LottoController {
 
         Map<LottoRank, Integer> result = lottoService.calculateResult(lottos, winningLotto);
         outputView.printResult(result);
+
+        double profit = lottoService.calculateProfit(result, money);
+        outputView.printProfit(profit);
     }
 
     private <T> T checkValidInput(Supplier<T> inputSupplier) {

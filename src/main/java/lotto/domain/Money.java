@@ -24,4 +24,8 @@ public class Money {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_PRICE.getMessage());
         }
     }
+
+    public int getMoney() {
+        return money;
+    }
 }

@@ -11,6 +11,7 @@ public class OutputView {
     private static final String RESULT_MESSAGE = "당첨 통계";
     private static final String LINE = "---";
     private static final String RESULT_FORMAT = "%s (%,d원) - %d개\n";
+    private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.";
 
     public void printErrorMessage(String message) {
         System.out.println(message);
@@ -40,5 +41,9 @@ public class OutputView {
         int count = result.getOrDefault(lottoRank, 0);
         System.out.printf(RESULT_FORMAT,
                 lottoRank.getMessage(), lottoRank.getPrize(), count);
+    }
+
+    public void printProfit(double profit) {
+        System.out.printf(PROFIT_RATE_FORMAT, profit);
     }
 }
