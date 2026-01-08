@@ -19,14 +19,13 @@ public class InputConverter {
         return Arrays.stream(input.split(DELIMITER_COMMA))
                 .map(String::trim)
                 .map(InputConverter::convertStringToInteger)
-                .map(InputConverter::validateLottoNumber)
+                .peek(InputConverter::validateLottoNumber)
                 .toList();
     }
 
-    public static int validateLottoNumber(int number) {
+    public static void validateLottoNumber(int number) {
         if (number < 1 || number > 45) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_NUMBER_RANGE.getMessage());
         }
-        return number;
     }
 }

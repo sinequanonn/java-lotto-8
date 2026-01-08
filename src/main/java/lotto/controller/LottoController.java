@@ -71,7 +71,7 @@ public class LottoController {
         return checkValidInput(() -> {
             String input = inputView.inputBonusNumber();
             int bonusNumber = InputConverter.convertStringToInteger(input);
-            bonusNumber = InputConverter.validateLottoNumber(bonusNumber);
+            InputConverter.validateLottoNumber(bonusNumber);
             if (lotto.contains(bonusNumber)) {
                 throw new IllegalArgumentException(ErrorMessage.DUPLICATED_NUMBER.getMessage());
             }
